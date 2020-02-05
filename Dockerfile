@@ -12,7 +12,9 @@ ENV PATH /app/node_modules/.bin:$PATH
 COPY package.json /app/package.json
 
 RUN npm install -g @angular/cli@8.3.22
+RUN npm install --save @angular-devkit/build-angular
 RUN npm run --build --prod
+
 
 # add app
 COPY . /app
