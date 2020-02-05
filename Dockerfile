@@ -1,11 +1,22 @@
+# base image
 FROM node:latest as node
 
-RUN mkdir /usr/src/app
-WORKDIR /usr/src/app
 
+# set working directory
+WORKDIR /app
+
+# add `/app/node_modules/.bin` to $PATH
+ENV PATH /app/node_modules/.bin:$PATH
+
+# install and cache app dependencies
+COPY package.json /app/package.json
+RUN npm install
 RUN npm install -g @angular/cli@8.3.22
-RUN npm run --build
+RUN npm run --build --prod
 
-COPY . /usr/src/app
+# add app
+COPY . /app
 
-CMD ng serve --host 127.0.0.1  --port 4900
+# start app
+CMD ng serve --host 0.0.0.0
+
