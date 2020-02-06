@@ -13,7 +13,7 @@ COPY package.json /app/package.json
 
 RUN npm install -g @angular/cli@8.3.22
 RUN npm i --only=dev
-npm install -g rxjs
+RUN npm install -g rxjs
 RUN npm run --build --prod
 
 
