@@ -1,7 +1,5 @@
 # base image
 FROM node:latest as node
-
-FROM node:latest as node
 WORKDIR /usr/src/app
 COPY package.json ./
 RUN npm install
