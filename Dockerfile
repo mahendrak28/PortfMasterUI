@@ -7,8 +7,10 @@ RUN npm install
 RUN npm run build --prod
 
 
-# add app
-COPY . /usr/src/app
-
-# start app
-CMD ng serve --host 0.0.0.0
+FROM nginx:alpine
+## Remove default nginx website
+RUN rm -rf /usr/share/nginx/html/*
+## From 'builder' copy website to default nginx public folder
+COPY --from=node /app/dist /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
